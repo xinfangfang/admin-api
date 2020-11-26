@@ -24,5 +24,23 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        $this->app->extend('command.entrust.migration', function () {
+
+            return new class extends \Zizaco\Entrust\MigrationCommand
+
+            {
+
+                public function handle()
+
+                {
+
+                    parent::fire();
+
+                }
+
+            };
+
+        });
     }
+
 }
