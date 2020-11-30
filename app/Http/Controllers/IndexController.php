@@ -24,7 +24,8 @@ class IndexController extends Controller
             ->leftJoin('labour_type as lt','l.labour_type','=','lt.id')
             ->select('l.id as l_id','l.*','la.id as la_id','la.*','lt.id as lt_id','lt.*')
             ->paginate(15);
-        dd($data);die;
+//        dd($data);die;
+        echo 12345;
         $num = Db::table('labour')->count();
         return view('index.labourlist',['data'=>$data,'num'=>$num]);
     }
