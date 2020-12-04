@@ -20,6 +20,11 @@ use Illuminate\Http\Request;
 Route::group([
     //'middleware' => [],
 ], function ($router) {
-    $router->get('user/add','AdminController@addUser');
+    $router->get('user/role', 'AdminController@addRole');                //添加角色
+    $router->get('user/info', 'AdminController@addUser');                //添加用户
+    $router->get('user/permission', 'AdminController@addPermission');    //添加权限
+
+    $router->post('excel/add', 'ExcelController@ImportExcel');           //excel导入
+
 });
 
