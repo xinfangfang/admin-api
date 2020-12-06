@@ -69,7 +69,7 @@
                             </a>
                             <dl class="layui-nav-child">
                                 <dd class="">
-                                    <a href="javascript:;" _href="./echarts1.html">
+                                    <a href="javascript:;" _href="vislist">
                                         <cite>目视化列表</cite>
                                     </a>
                                 </dd>

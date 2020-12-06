@@ -25,7 +25,7 @@ return [
     | supported by Laravel is shown below to make development simple.
     |
     |
-    | All database work in Laravel is done through the PHP PDO facilities
+    | All database work in Laravel is done through the PHP PDO facilities   
     | so make sure you have the driver for your particular database of
     | choice installed on your machine before you begin development.
     |
@@ -43,7 +43,7 @@ return [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '8.131.107.190'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'admin'),
+            'database' => env('DB_DATABASE', 'test'),
             'username' => env('DB_USERNAME', 'root'),
             'password' => env('DB_PASSWORD', '123456'),
             'unix_socket' => env('DB_SOCKET', ''),

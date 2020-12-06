@@ -11,7 +11,9 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" href="/css/app.css">
         <link rel="stylesheet" href="/css/x-admin.css" media="all">
+
     </head>
     <body>
         <div class="x-nav">
@@ -81,19 +83,19 @@
                 <?php foreach($data as $k=>$v){ ?>
                     <tr>
 
-                        <td><?php echo $v->l_id; ?></td>
+                        <td><?php echo $v->id; ?></td>
                         <td><?php echo $v->labour_name; ?></td>
                         <td><?php echo $v->labour_harm; ?></td>
                         <td><?php echo $v->labour_contact; ?></td>
                         <td><?php echo $v->labour_requirement; ?></td>
-                        <td><?php echo $v->brand_name; ?></td>
+                        <td><?php echo $v->brand; ?></td>
                         <td><?php echo $v->brand_type; ?></td>
                         <td><?php echo $v->labour_model; ?></td>
-                        <td><?php echo $v->labour_protectd; ?></td>
+                        <td><?php echo $v->labour_protected; ?></td>
                         <td><?php echo $v->labour_price; ?></td>
                         <td><?php echo $v->remarks; ?></td>
                             <td class="td-manage">
-                                <a title="编辑" href="javascript:;" onclick="question_edit('编辑','question-edit.html','4','','510')"
+                                <a title="编辑" href="javascript:;" onclick="question_edit('编辑','labour_edit?id=<?php echo $v->id; ?>','4','','510')"
                                    class="ml-5" style="text-decoration:none">
                                     <i class="layui-icon">&#xe642;</i>
                                 </a>
