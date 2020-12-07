@@ -7,6 +7,10 @@
  */
 
 namespace App\Http\Controllers;
+use App\models\Admin;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 
 use App\models\Role;
@@ -14,7 +18,7 @@ use App\models\Permission;
 use App\User;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
-class AdminController
+class AdminController extends Controller
 {
     use EntrustUserTrait;
 
@@ -78,5 +82,37 @@ class AdminController
         $owner->attachPermissions(array($createPost, $editUser));
 
         return "添加权限成功";
+    }
+
+    public function saveAdmin(Request $request){
+        //1、验证
+
+        $data = $request->only('username','password');
+        $saveData = [
+            'username' => $data['username'],
+            'password' => Hash::make($data['password'])
+        ];
+        $re = Admin::create($saveData);
+
+        return $this->success([]);
+    }
+
+    public function checkLogin(Request $request){
+
+
+        $data = $request->only('username','password');
+        $res = Auth::guard('admin')->attempt($data);
+        if($res){
+            // 登录成功进入首页
+            return $this->success(['登录成功']);
+        }else{
+            return $this->success(['登录失败']);
+        }
+    }
+
+    public function logout(){
+        Auth::guard('admin')->logout();
+        // 跳转到登录页
+        //return redirect('admin/login');
     }
 }

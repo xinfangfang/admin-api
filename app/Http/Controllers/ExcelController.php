@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ExcelController
+class ExcelController extends Controller
 {
 
     /**
@@ -64,11 +64,17 @@ class ExcelController
             });
         }
 
-        return [];
+        return $this->success([]);
     }
-    
-    
-    
 
+    /**
+     * 列表
+     *
+     * @return mixed
+     */
+    public function getLabour(){
+        $re = Labour::where('delete_flag',2)->paginate(15);
 
+         return $this->success($re->toArray());
+    }
 }
