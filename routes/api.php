@@ -23,6 +23,11 @@ Route::group([
     $router->post('user/add', 'AdminController@saveAdmin');                //注册
     $router->post('user/check', 'AdminController@checkLogin');             //登录验证
     $router->post('user/out', 'AdminController@logout');                   //登出
+    $router->post('role/get', 'AdminController@getRole');                  //获取用户
+    $router->post('permissions/get', 'AdminController@getPermissions');    //获取权限
+    $router->post('user_list/get', 'AdminController@getUserList');    //获取用户列表
+
+
 
     $router->get('user/role', 'AdminController@addRole');                  //添加角色
     $router->get('user/info', 'AdminController@addUser');                  //添加用户

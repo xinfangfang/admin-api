@@ -7,7 +7,9 @@
  */
 
 namespace App\Http\Controllers;
+
 use App\models\Admin;
+use App\models\RoleUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -18,28 +20,30 @@ use App\models\Permission;
 use App\User;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
+
 class AdminController extends Controller
 {
     use EntrustUserTrait;
 
     /**
      * 添加角色
+     *
+     * @param Request $request
+     * @return array
      */
-    public function addRole()
+    public function addRole(Request $request)
     {
+        $param = $request->only(
+            'role_name',
+            'display_name'
+        );
         $owner = new Role();
-        $owner->name = 'owner';
-        $owner->display_name = 'Project Owner'; // optional
+        $owner->name = $param['role_name'];
+        $owner->display_name = $param['display_name']; // optional
         $owner->description = 'User is the owner of a given project'; // optional
         $owner->save();
 
-        $admin = new Role();
-        $admin->name = 'admin';
-        $admin->display_name = 'User Administrator'; // optional
-        $admin->description = 'User is allowed to manage and edit other users'; // optional
-        $admin->save();
-
-        return "添加成功";
+        return $this->success(["添加成功"]);
 
     }
 
@@ -51,7 +55,7 @@ class AdminController extends Controller
         $user = User::where('name', '=', 'michele')->first();
         $user->attachRole(1);
 
-        return "添加用户成功";
+        return $this->success(["添加用户成功"]);
     }
 
 
@@ -81,38 +85,91 @@ class AdminController extends Controller
 // equivalent to $admin->perms()->sync(array($createPost->id));
         $owner->attachPermissions(array($createPost, $editUser));
 
-        return "添加权限成功";
+        return $this->success(["添加权限成功"]);
     }
 
-    public function saveAdmin(Request $request){
+    public function saveAdmin(Request $request)
+    {
         //1、验证
-
-        $data = $request->only('username','password');
+        $data = $request->only('username', 'password');
         $saveData = [
             'username' => $data['username'],
             'password' => Hash::make($data['password'])
         ];
-        $re = Admin::create($saveData);
+        if (!empty(Admin::where('username', $data['username'])->get()->toArray())) {
+            return $this->error(['用户已注册']);
+        } else {
+            Admin::create($saveData);
+        }
 
-        return $this->success([]);
+        return $this->success(['注册成功']);
     }
 
-    public function checkLogin(Request $request){
-
-
-        $data = $request->only('username','password');
+    public function checkLogin(Request $request)
+    {
+        $data = $request->only('username', 'password');
         $res = Auth::guard('admin')->attempt($data);
-        if($res){
+        if ($res) {
             // 登录成功进入首页
             return $this->success(['登录成功']);
-        }else{
-            return $this->success(['登录失败']);
+        } else {
+            return $this->error(['登录失败']);
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::guard('admin')->logout();
         // 跳转到登录页
         //return redirect('admin/login');
+
+        return $this->success(['登出成功']);
+    }
+
+    /**
+     * 获取角色
+     *
+     * @return array
+     */
+    public function getRole()
+    {
+        $re = Role::select('id', 'name')->get()->toArray();
+
+        return $this->success([$re]);
+    }
+
+
+    /**
+     * 获取权限
+     *
+     * @return array
+     */
+    public function getPermissions()
+    {
+        $re = Permission::select('id', 'name', 'display_name')->get()->toArray();
+
+        return $this->success([$re]);
+    }
+
+    public function getUserList()
+    {
+        $user = Admin::get()->toArray();
+        $user = array_column($user, null, 'id');
+        $role = Role::get()->toArray();
+        $role = array_column($role, null, 'id');
+        $permission = Permission::get()->toArray();
+        $permission = array_column($permission, null, 'id');
+        $re = RoleUser::get()->toArray();
+
+        $data = [];
+        foreach ($re as $k => $v) {
+            $data[$k]['uid'] = $v['user_id'];
+            $data[$k]['username'] = $user[$v['user_id']]['username'];
+            $data[$k]['role'] = $role[$v['role_id']]['name'];
+            $data[$k]['permission'] = $permission[$v['permissions_id']]['display_name'];
+
+        }
+        return $this->success([$data]);
+
     }
 }

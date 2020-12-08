@@ -19,4 +19,13 @@ class Controller extends BaseController
         return compact('code', 'data');
 
     }
+
+
+    protected function error(array $data = [])
+    {
+        $code = 1099;
+
+        return compact('code', 'data');
+
+    }
 }
