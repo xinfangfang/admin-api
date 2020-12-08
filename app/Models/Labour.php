@@ -18,4 +18,32 @@ class Labour extends Model
         $num = Db::table('labour')->count();
         return ['data'=>$data,'num'=>$num];
     }
+    /*获取可维护字段的值
+     * */
+    public function maintainAttr()
+    {
+        $ai_data = Db::table('attribute_item')->get()->map(function ($value) {
+            return (array)$value;
+        })->toArray();
+//        dd($ai_data);
+        $av_data = Db::table('attribute_item_value')->get()->map(function ($value) {
+            return (array)$value;
+        })->toArray();
+//        print_r($ai_data);die;
+        foreach($ai_data as $k=>$v){
+            foreach($av_data as $kk=>$vv){
+                if($v['id'] == $vv['attribute_item_id']){
+                    $ai_data[$k]['av'][] = $vv;
+                }
+            }
+        }
+        return ['data'=>$ai_data];
+    }
+    public function user_list()
+    {
+        $data = Db::table('users')->get()->map(function ($value) {
+            return (array)$value;
+        })->toArray();;
+        return $data;
+    }
 }

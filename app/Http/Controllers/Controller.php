@@ -10,4 +10,22 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+
+    protected function success(array $data = [])
+    {
+        $code = 0;
+
+        return compact('code', 'data');
+
+    }
+
+
+    protected function error(array $data = [])
+    {
+        $code = 1099;
+
+        return compact('code', 'data');
+
+    }
 }

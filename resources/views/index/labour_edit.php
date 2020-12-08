@@ -24,7 +24,17 @@
                     </label>
                     <div class="layui-input-inline">
                         <input type="text" id="username" name="labour_name" required="" lay-verify="required" value="admin"
-                        autocomplete="off" class="layui-input">
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label for="phone" class="layui-form-label">
+                        <span class="x-red">*</span>个人防护用品类型
+                    </label>
+                    <div class="layui-input-inline">
+                        <select name="">
+                            <option value="">请选择</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -32,8 +42,9 @@
                         <span class="x-red">*</span>危害因素
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="phone" value="18925139194" name="labour_harm" required="" lay-verify="phone"
-                        autocomplete="off" class="layui-input">
+                        <select name="">
+                            <option value="">请选择</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -41,8 +52,9 @@
                         <span class="x-red">*</span>接触部位/伤害部位
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_email" name="labour_contact" required="" lay-verify="email" value="113664000@qq.com"
-                        autocomplete="off" class="layui-input">
+                        <select name="">
+                            <option value="">请选择</option>
+                        </select>
                     </div>
 
                 </div>
@@ -51,8 +63,9 @@
                         <span class="x-red">*</span>参数要求
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="L_email" name="labour_requirement" required="" lay-verify="email" value="113664000@qq.com"
-                               autocomplete="off" class="layui-input">
+                        <select name="">
+                            <option value="">请选择</option>
+                        </select>
                     </div>
 
                 </div>
@@ -61,9 +74,9 @@
                         <span class="x-red">*</span>品牌
                     </label>
                     <div class="layui-input-inline">
-                      <select name="brand_id">
-                        <option value="">请选择品牌</option>
-                      </select>
+                        <select name="brand_id">
+                            <option value="">请选择品牌</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -71,8 +84,8 @@
                         <span class="x-red">*</span>型号
                     </label>
                     <div class="layui-input-inline">
-                        <input type="password" id="L_pass" name="labour_model" required="" lay-verify="pass"
-                        autocomplete="off" class="layui-input" value="123456">
+                        <input type="" id="L_pass" name="labour_model" required="" lay-verify="pass"
+                               autocomplete="off" class="layui-input" value="">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -80,8 +93,8 @@
                         <span class="x-red">*</span>防护参数
                     </label>
                     <div class="layui-input-inline">
-                        <input type="password" id="L_repass" name="labour_protectd" required="" lay-verify="repass" value="123456"
-                        autocomplete="off" class="layui-input">
+                        <input type="text" id="L_repass" name="labour_protectd" required="" lay-verify="repass" value=""
+                               autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -89,7 +102,7 @@
                         <span class="x-red">*</span>价格
                     </label>
                     <div class="layui-input-inline">
-                        <input type="password" id="L_repass" name="labour_price" required="" lay-verify="repass" value="123456"
+                        <input type="text" id="L_repass" name="labour_price" required="" lay-verify="repass" value=""
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -98,7 +111,7 @@
                         <span class="x-red">*</span>备注
                     </label>
                     <div class="layui-input-inline">
-                        <input type="password" id="L_repass" name="remarks" required="" lay-verify="repass" value="123456"
+                        <input type="text" id="L_repass" name="remarks" required="" lay-verify="repass" value=""
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>

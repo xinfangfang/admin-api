@@ -44,7 +44,7 @@
 <!--                  </div>-->
 <!--                </div>-->
             </form>
-            <xblock><button class="layui-btn" onclick="question_add('添加问题','question-add.html','600','500')"><i class="layui-icon">&#xe608;</i>添加</button><span class="x-right" style="line-height:40px">共有数据：<?php echo $num; ?> 条</span>
+            <xblock><span class="x-right" style="line-height:40px">共有数据：<?php echo $num; ?> 条</span>
                 <button class="layui-btn" onclick="question_add('筛选','question-add.html','600','500')"><i class="layui-icon"></i>导入excel筛选</button>
                 <button class="layui-btn" onclick="question_add('下载模板','question-add.html','600','500')"><i class="layui-icon"></i>下载excel模板</button>
             </xblock>
@@ -94,13 +94,13 @@
                         <td><?php echo $v->labour_protected; ?></td>
                         <td><?php echo $v->labour_price; ?></td>
                         <td><?php echo $v->remarks; ?></td>
-                            <td class="td-manage">
+                            <td class="td-manage" >
                                 <a title="编辑" href="javascript:;" onclick="question_edit('编辑','labour_edit?id=<?php echo $v->id; ?>','4','','510')"
-                                   class="ml-5" style="text-decoration:none">
+                                    style="text-decoration:none;display:inline;" >
                                     <i class="layui-icon">&#xe642;</i>
                                 </a>
                                 <a title="删除" href="javascript:;" onclick="question_del(this,'1')"
-                                   style="text-decoration:none">
+                                   style="text-decoration:none;display:inline;">
                                     <i class="layui-icon">&#xe640;</i>
                                 </a>
                             </td>

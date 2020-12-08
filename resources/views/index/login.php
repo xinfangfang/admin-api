@@ -19,24 +19,14 @@
     <body style="background-color: #393D49">
         <div class="x-box">
             <div class="x-top">
-                <i class="layui-icon x-login-close">
-                    &#x1007;
-                </i>
-                <ul class="x-login-right">
-                    <li style="background-color: #F1C85F;" color="#F1C85F">
-                    </li>
-                    <li style="background-color: #EA569A;" color="#EA569A">
-                    </li>
-                    <li style="background-color: #393D49;" color="#393D49">
-                    </li>
-                </ul>
+
             </div>
             <div class="x-mid">
                 <div class="x-avtar">
                     <img src="/images/logo.png" alt="">
                 </div>
                 <div class="input">
-                    <form class="layui-form">
+<!--                    <form class="layui-form" action="user/check" method="post">-->
                         <div class="layui-form-item x-login-box">
                             <label for="username" class="layui-form-label">
                                 <i class="layui-icon">&#xe612;</i>
@@ -56,42 +46,69 @@
                             </div>
                         </div>
                         <div class="layui-form-item" id="loginbtn">
-                            <button  class="layui-btn" lay-filter="save" lay-submit="">
+                            <button  class="layui-btn" onclick="login()" lay-filter="save" lay-submit="">
                                 登 录
                             </button>
                         </div>
-                    </form>
+<!--                    </form>-->
                 </div>
             </div>
         </div>
         <p style="color:#fff;text-align: center;">Copyright © 2017.Company name All rights X-admin </p>
         <script src="/lib/layui/layui.js" charset="utf-8">
         </script>
+        <script src="/js/jquery-3.5.1.min.js" charset="utf-8"></script>
         <script>
-            layui.use(['form'],
-            function() {
-                $ = layui.jquery;
-                var form = layui.form(),
-                layer = layui.layer;
-
-                $('.x-login-right li').click(function(event) {
-                    color = $(this).attr('color');
-                    $('body').css('background-color', color);
-                });
-
-                //监听提交
-                form.on('submit(save)',
-                function(data) {
-                    console.log(data);
-                    layer.alert(JSON.stringify(data.field), {
-                      title: '最终的提交信息'
-                    },function  () {
-                        location.href = "./index.html";
-                    })
-                    return false;
-                });
-
-            });
+            function login()
+            {
+                var username = $('#username').val();
+                var password = $('#pass').val();
+                console.log(username+password);
+                $.ajax({
+                    url:"user/check",
+                    data:{'username':username,'password':password},
+                    type:'post',
+                    dataType:'json',
+                    // data:formData,
+                    // cache:false,  //默认是true，但是一般不做缓存
+                    // processData:false, //用于对data参数进行序列化处理，这里必须false；如果是true，就会将FormData转换为String类型
+                    // contentType:false,  //一些文件上传http协议的关系，自行百度，如果上传的有文件，那么只能设置为false
+                    success:function(res){
+                        // window.location.href='index';
+                        if(res.code == 0){
+                            alert('登录成功');
+                            window.location.href='index';
+                        }else{
+                            alert(res.data[0])
+                        }
+                        console.log(res);
+                    }
+                })
+            }
+            // layui.use(['form'],
+            // function() {
+            //     $ = layui.jquery;
+            //     var form = layui.form(),
+            //     layer = layui.layer;
+            //
+            //     $('.x-login-right li').click(function(event) {
+            //         color = $(this).attr('color');
+            //         $('body').css('background-color', color);
+            //     });
+            //
+            //     //监听提交
+            //     form.on('submit(save)',
+            //     function(data) {
+            //         console.log(data);
+            //         layer.alert(JSON.stringify(data.field), {
+            //           title: '最终的提交信息'
+            //         },function  () {
+            //             location.href = "./index.html";
+            //         })
+            //         return false;
+            //     });
+            //
+            // });
 
         </script>
     </body>

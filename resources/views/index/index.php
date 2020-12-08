@@ -27,8 +27,7 @@
                         <a href="javascript:;">admin</a>
                         <dl class="layui-nav-child"> <!-- 二级菜单 -->
                           <dd><a href="">个人信息</a></dd>
-                          <dd><a href="login">切换帐号</a></dd>
-                          <dd><a href="login">退出</a></dd>
+                          <dd><a href="user/out">退出</a></dd>
                         </dl>
                       </li>
                       <!-- <li class="layui-nav-item">
@@ -55,7 +54,7 @@
                                     </a>
                                 </dd>
                                 <dd class="">
-                                    <a href="javascript:;" _href="./echarts2.html">
+                                    <a href="javascript:;" _href="labour_add">
                                         <cite>添加劳动防护用品</cite>
                                     </a>
                                 </dd>
@@ -69,7 +68,7 @@
                             </a>
                             <dl class="layui-nav-child">
                                 <dd class="">
-                                    <a href="javascript:;" _href="vislist">
+                                    <a href="javascript:;" _href="vis">
                                         <cite>目视化列表</cite>
                                     </a>
                                 </dd>
@@ -82,10 +81,22 @@
                             </dl>
                         </li>
                         <li class="layui-nav-item">
-                            <a class="javascript:;" href="javascript:;">
+                            <a class="javascript:;" href="javascript:;" _href="">
                                 <i class="layui-icon" style="top: 3px;">&#xe614;</i><cite>用户管理</cite>
                             </a>
+                            <dl class="layui-nav-child">
+                                <dd class="">
+                                    <a href="javascript:;" _href="useradmin">
+                                        <cite>用户列表</cite>
+                                    </a>
+                                </dd>
+                                <dd class="">
+                                    <a href="javascript:;" _href="./echarts2.html">
+                                        <cite>权限分配</cite>
+                                    </a>
+                                </dd>
 
+                            </dl>
                         </li>
                         <li class="layui-nav-item" style="height: 30px; text-align: center">
                         </li>
@@ -103,7 +114,7 @@
                 </ul>
                 <div class="layui-tab-content site-demo site-demo-body">
                     <div class="layui-tab-item layui-show">
-                        <iframe frameborder="0" src="./welcome.html" class="x-iframe"></iframe>
+                        <iframe frameborder="0" src="" class="x-iframe"></iframe>
                     </div>
                 </div>
             </div>

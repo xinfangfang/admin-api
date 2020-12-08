@@ -11,14 +11,16 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/css/x-admin.css" media="all">
+
 </head>
 <body>
 <div class="x-nav">
             <span class="layui-breadcrumb">
               <a><cite>首页</cite></a>
-              <a><cite>目视化管理</cite></a>
-              <a><cite>目视化列表</cite></a>
+              <a><cite>用户管理</cite></a>
+              <a><cite>用户列表</cite></a>
             </span>
 
 </div>
@@ -42,9 +44,8 @@
 <!--                  </div>-->
 <!--                </div>-->
 </form>
-<xblock><button class="layui-btn" onclick="question_add('添加问题','question-add.html','600','500')"><i class="layui-icon">&#xe608;</i>添加</button><span class="x-right" style="line-height:40px">共有数据： 条</span>
-    <button class="layui-btn" onclick="question_add('筛选','question-add.html','600','500')"><i class="layui-icon"></i>导入excel筛选</button>
-    <button class="layui-btn" onclick="question_add('下载模板','question-add.html','600','500')"><i class="layui-icon"></i>下载excel模板</button>
+<xblock>
+    <button class="layui-btn" onclick="register('注册','register','600','500')"><i class="layui-icon"></i>注册用户</button>
 </xblock>
 <table class="layui-table">
     <thead>
@@ -53,34 +54,22 @@
             ID
         </th>
         <th>
-            存在的危害因素
+            用户名
         </th>
-        <th>
-            目视化解决措施
-        </th>
-        <th>
-            具体内容/标识名称
-        </th>
-        <th>
-            设置依据
-        </th>
-        <th>
-            图例
-        </th>
-        <th>
-            尺寸
-        </th>
-        <th>材质工艺</th>
-        <th>单价</th>
-        <th>备注</th>
-        <th>操作</th>
     </tr>
     </thead>
     <tbody>
+    <?php foreach($data as $k=>$v){ ?>
+        <tr>
 
+            <td><?php echo $v['id']; ?></td>
+            <td><?php echo $v['username']; ?></td>
+
+
+        </tr>
+    <?php } ?>
     </tbody>
-</table>
-<!--            <div id="page"></div>-->
+</table><!--            <div id="page"></div>-->
 </div>
 <script src="/lib/layui/layui.js" charset="utf-8"></script>
 <script src="/js/x-layui.js" charset="utf-8"></script>
@@ -143,7 +132,7 @@
         layer.msg('可以跳到前台具体问题页面',{icon:1,time:1000});
     }
     /*添加*/
-    function question_add(title,url,w,h){
+    function register(title,url,w,h){
         x_admin_show(title,url,w,h);
     }
     //编辑
