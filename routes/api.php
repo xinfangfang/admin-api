@@ -39,3 +39,17 @@ Route::group([
 
 });
 
+Route::get('/index', 'IndexController@index');//主页面
+Route::get('login', 'BaseController@login');//登录
+Route::get('labourlist', 'IndexController@labourlist');//劳动防护用品列表
+Route::get('vis', 'IndexController@vislist');//目视化列表
+Route::get('labour_edit', 'IndexController@labour_edit');//修改劳动防护用品
+Route::get('labour_add', 'IndexController@labour_add');//添加劳动防护用品
+Route::get('excel_add', 'IndexController@excel_add');//excel导入劳动防护用品数据view
+Route::post('bc', 'IndexController@testt');//excel导入劳动防护用品数据view
+Route::get('useradmin', 'IndexController@user_admin');//用户列表
+Route::get('register', 'IndexController@register');//添加用户
+
+
+
+

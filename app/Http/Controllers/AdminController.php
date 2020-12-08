@@ -9,7 +9,10 @@
 namespace App\Http\Controllers;
 
 use App\models\Admin;
+<<<<<<< HEAD
 use App\models\RoleUser;
+=======
+>>>>>>> dev
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -20,13 +23,17 @@ use App\models\Permission;
 use App\User;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
 class AdminController extends Controller
 {
     use EntrustUserTrait;
 
     /**
      * 添加角色
+<<<<<<< HEAD
      *
      * @param Request $request
      * @return array
@@ -44,6 +51,24 @@ class AdminController extends Controller
         $owner->save();
 
         return $this->success(["添加成功"]);
+=======
+     */
+    public function addRole()
+    {
+        $owner = new Role();
+        $owner->name = 'owner';
+        $owner->display_name = 'Project Owner'; // optional
+        $owner->description = 'User is the owner of a given project'; // optional
+        $owner->save();
+
+        $admin = new Role();
+        $admin->name = 'admin';
+        $admin->display_name = 'User Administrator'; // optional
+        $admin->description = 'User is allowed to manage and edit other users'; // optional
+        $admin->save();
+
+        return "添加成功";
+>>>>>>> dev
 
     }
 
@@ -55,7 +80,11 @@ class AdminController extends Controller
         $user = User::where('name', '=', 'michele')->first();
         $user->attachRole(1);
 
+<<<<<<< HEAD
         return $this->success(["添加用户成功"]);
+=======
+        return "添加用户成功";
+>>>>>>> dev
     }
 
 
@@ -85,12 +114,20 @@ class AdminController extends Controller
 // equivalent to $admin->perms()->sync(array($createPost->id));
         $owner->attachPermissions(array($createPost, $editUser));
 
+<<<<<<< HEAD
         return $this->success(["添加权限成功"]);
+=======
+        return "添加权限成功";
+>>>>>>> dev
     }
 
     public function saveAdmin(Request $request)
     {
         //1、验证
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev
         $data = $request->only('username', 'password');
         $saveData = [
             'username' => $data['username'],
@@ -125,6 +162,7 @@ class AdminController extends Controller
 
         return $this->success(['登出成功']);
     }
+<<<<<<< HEAD
 
     /**
      * 获取角色
@@ -172,4 +210,6 @@ class AdminController extends Controller
         return $this->success([$data]);
 
     }
+=======
+>>>>>>> dev
 }

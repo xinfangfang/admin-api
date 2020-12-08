@@ -9,10 +9,14 @@
 namespace App\Http\Controllers;
 
 
+<<<<<<< HEAD
 use App\Models\Admin;
 use App\models\Labour;
 use App\models\Role;
 use App\models\RoleUser;
+=======
+use App\models\Labour;
+>>>>>>> dev
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -28,12 +32,17 @@ class ExcelController extends Controller
      */
     public function ImportExcel(Request $request)
     {
+<<<<<<< HEAD
         //> 获取上传文件路径 $_FILES
         $uid = $request['uid'];
         $userInfo = $this->getUserRole($uid);
         if ($userInfo[0]['role_id'] != 4) {
             return $this->error(['没有权限,请联系管理员！']);
         }
+=======
+
+        //> 获取上传文件路径 $_FILES
+>>>>>>> dev
         if ($_FILES['file']['error'] == 0) {
             //> 获取上传文件名称(已便于后面判断是否上传需要后缀文件)
             $name = $_FILES['file']['name'];
@@ -48,7 +57,11 @@ class ExcelController extends Controller
             $fileName = $_FILES['file']['tmp_name'];
             //> excel文件导入 上传文件
             $addArr = [];
+<<<<<<< HEAD
             Excel::load($fileName, function ($reader) use ($addArr) {
+=======
+            Excel::load($fileName, function ($reader)use($addArr) {
+>>>>>>> dev
                 //> 处理上传文件数据 此时 处理多个上传的 sheet 文件
                 foreach ($reader->get() as $item) {
                     //> 处理相关上传excel数据
@@ -77,6 +90,7 @@ class ExcelController extends Controller
     /**
      * 列表
      *
+<<<<<<< HEAD
      * @param Request $request
      * @return array
      */
@@ -118,5 +132,13 @@ class ExcelController extends Controller
         }
 
         return $userInfo;
+=======
+     * @return mixed
+     */
+    public function getLabour(){
+        $re = Labour::where('delete_flag',2)->paginate(15);
+
+         return $this->success($re->toArray());
+>>>>>>> dev
     }
 }
