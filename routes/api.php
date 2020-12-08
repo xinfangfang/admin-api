@@ -25,7 +25,7 @@ Route::group([
     $router->post('user/out', 'AdminController@logout');                   //登出
     $router->post('role/get', 'AdminController@getRole');                  //获取用户
     $router->post('permissions/get', 'AdminController@getPermissions');    //获取权限
-    $router->post('user_list/get', 'AdminController@getUserList');    //获取用户列表
+    $router->post('user_list/get', 'AdminController@getUserList');         //获取用户列表
 
 
 

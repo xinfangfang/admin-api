@@ -9,14 +9,10 @@
 namespace App\Http\Controllers;
 
 
-<<<<<<< HEAD
 use App\Models\Admin;
 use App\models\Labour;
 use App\models\Role;
 use App\models\RoleUser;
-=======
-use App\models\Labour;
->>>>>>> dev
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -32,17 +28,14 @@ class ExcelController extends Controller
      */
     public function ImportExcel(Request $request)
     {
-<<<<<<< HEAD
         //> 获取上传文件路径 $_FILES
         $uid = $request['uid'];
         $userInfo = $this->getUserRole($uid);
         if ($userInfo[0]['role_id'] != 4) {
             return $this->error(['没有权限,请联系管理员！']);
         }
-=======
 
         //> 获取上传文件路径 $_FILES
->>>>>>> dev
         if ($_FILES['file']['error'] == 0) {
             //> 获取上传文件名称(已便于后面判断是否上传需要后缀文件)
             $name = $_FILES['file']['name'];
@@ -57,11 +50,7 @@ class ExcelController extends Controller
             $fileName = $_FILES['file']['tmp_name'];
             //> excel文件导入 上传文件
             $addArr = [];
-<<<<<<< HEAD
             Excel::load($fileName, function ($reader) use ($addArr) {
-=======
-            Excel::load($fileName, function ($reader)use($addArr) {
->>>>>>> dev
                 //> 处理上传文件数据 此时 处理多个上传的 sheet 文件
                 foreach ($reader->get() as $item) {
                     //> 处理相关上传excel数据
@@ -90,7 +79,6 @@ class ExcelController extends Controller
     /**
      * 列表
      *
-<<<<<<< HEAD
      * @param Request $request
      * @return array
      */
@@ -98,7 +86,7 @@ class ExcelController extends Controller
     {
         $uid = $request['uid'];
         $userInfo = $this->getUserRole($uid);
-        if(isset($userInfo['code'])){
+        if (isset($userInfo['code'])) {
             return $userInfo;
         }
         if ($userInfo[0]['role_id'] == 5) {
@@ -113,6 +101,39 @@ class ExcelController extends Controller
                 'labour_model',
                 'labour_protected'
             ];
+            if ($_FILES['file']['error'] == 0) {
+                //> 获取上传文件名称(已便于后面判断是否上传需要后缀文件)
+                $name = $_FILES['file']['name'];
+                //> 获取上传文件后缀 如(xls exe xlsx 等)
+                $ext = strtolower(trim(substr($name, (strpos($name, '.') + 1))));
+                //> 判断文件是否为指定的上传文件后缀
+                if (!in_array($ext, array('xls', 'xlsx'))) {
+                    //> 返回上一次请求位置,并携带错误消息
+                    return redirect()->back()->withErrors('请输入xls或xlsx后缀文件')->withInput();
+                }
+                //> 获取文件上传路径
+                $fileName = $_FILES['file']['tmp_name'];
+                //> excel文件导入 上传文件
+                $addArr = [];
+                $all =[];
+                Excel::load($fileName, function ($reader) use ($all) {
+                    foreach ($reader->get() as $k => $item) {
+                        $info = array_values($item->toArray());
+                        var_dump($info);
+                        $labour_harm = $info[0]['危害因素_安全风险'];
+                        $labour_harm = explode('、', $labour_harm);
+                        $labour_contact = $info[0]['接触_部位伤害部位'];
+                        $labour_contact = explode('、', $labour_contact);
+
+                        $re = Labour::where('delete_flag', 2)->whereIn('labour_harm',
+                            $labour_harm)->whereIn('labour_contact',
+                            $labour_contact)->get()->toArray();
+                        $all[$k] = $re;
+                        break;
+                    }
+                });
+                dd($all);
+            }
             $re = Labour::where('delete_flag', 2)->select($technology)->paginate(15);
         } else {
             $re = Labour::where('delete_flag', 2)->paginate(15);
@@ -132,13 +153,6 @@ class ExcelController extends Controller
         }
 
         return $userInfo;
-=======
-     * @return mixed
-     */
-    public function getLabour(){
-        $re = Labour::where('delete_flag',2)->paginate(15);
 
-         return $this->success($re->toArray());
->>>>>>> dev
     }
 }
