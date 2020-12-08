@@ -55,27 +55,25 @@
 <script>
     function add()
     {
-        var file = document.getElementById('file').files[0];
-        console.log(file);
-        var formData = new FormData();
-        formData.append('file',file);
+        var username = $('#username').val();
+        var password = $('#pass').val();
+        console.log(username+password);
         $.ajax({
-            url:"excel/add",
-            // data:{'file':file},
+            url:"user_list/get",
+            data:{'username':username,'password':password},
             type:'post',
-            data:formData,
-            cache:false,  //默认是true，但是一般不做缓存
-            processData:false, //用于对data参数进行序列化处理，这里必须false；如果是true，就会将FormData转换为String类型
-            contentType:false,  //一些文件上传http协议的关系，自行百度，如果上传的有文件，那么只能设置为false
+            dataType:'json',
+            // data:formData,
+            // cache:false,  //默认是true，但是一般不做缓存
+            // processData:false, //用于对data参数进行序列化处理，这里必须false；如果是true，就会将FormData转换为String类型
+            // contentType:false,  //一些文件上传http协议的关系，自行百度，如果上传的有文件，那么只能设置为false
             success:function(res){
-                // console.log(res);
+                // window.location.href='index';
                 if(res.code == 0){
-                    alert('添加成功');
-                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-
-                    parent.layer.close(index); //再执行关闭
+                    alert('注册成功');
+                    window.location.href='index';
                 }else{
-                    alert('添加失败')
+                    alert(res.data[0])
                 }
                 console.log(res);
             }
