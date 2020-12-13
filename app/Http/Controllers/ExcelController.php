@@ -232,8 +232,8 @@ class ExcelController extends Controller
                 $arr[$num]['brand_type'] = isset($brandType[$single['brand_type']]['name']) ? $brandType[$single['brand_type']]['name'] : '';
             }
         }
-        return $this->success($arr);
 
+        return $this->success($arr);
     }
 
     public function getUserRole($uid)
@@ -248,5 +248,17 @@ class ExcelController extends Controller
 
         return $userInfo;
 
+    }
+
+    function exportExcel($title,$list,$width){
+
+        Excel::create(iconv('UTF-8', 'GBK', $title),function($excel) use ($list,$width){
+            $excel->sheet('score', function($sheet) use ($list,$width){
+                $sheet->rows($list);
+                $sheet->setWidth($width);
+            });
+        })->export('xls');
+
+        return [];
     }
 }

@@ -28,13 +28,13 @@ Route::group([
     $router->post('user_list/get', 'AdminController@getUserList');         //获取用户列表
 
 
-
     $router->get('user/role', 'AdminController@addRole');                  //添加角色
     $router->get('user/info', 'AdminController@addUser');                  //添加用户
     $router->get('user/permission', 'AdminController@addPermission');      //添加权限
 
     $router->post('excel/add', 'ExcelController@ImportExcel');             //excel导入
     $router->post('excel/get', 'ExcelController@getLabour');               //excel_list
+    $router->post('excel/import', 'ExcelController@exportExcel');          //excel导出
 
 
 });
