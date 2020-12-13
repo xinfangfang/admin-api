@@ -11,13 +11,13 @@ namespace App\Http\Controllers;
 use App\models\Admin;
 use App\models\RoleUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-
-
 use App\models\Role;
 use App\models\Permission;
 use App\User;
+use Illuminate\Support\Facades\Session;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 
@@ -110,6 +110,12 @@ class AdminController extends Controller
         $res = Auth::guard('admin')->attempt($data);
         if ($res) {
             // 登录成功进入首页
+            $userInfo = Admin::where('username', $data['username'])->get()->toArray();
+            //存储用户信息
+            Session::put('user_name', $data['username']);
+            Session::put('user_id', $userInfo[0]['id']);
+            Session::save();
+
             return $this->success(['登录成功']);
         } else {
             return $this->error(['登录失败']);
