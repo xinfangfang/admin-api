@@ -49,10 +49,15 @@ class AdminController extends Controller
     /**
      * 添加用户
      */
-    public function addUser()
+    public function addUser(Request $request)
     {
-        $user = User::where('name', '=', 'michele')->first();
-        $user->attachRole(1);
+        $param = $request->only(
+            'role_id',
+            'name'
+        );
+        $user = User::where('name', '=', $param['name'])->first();
+        $user->attachRole($param['role_id']);
+
 
         return $this->success(["添加用户成功"]);
     }
@@ -100,6 +105,9 @@ class AdminController extends Controller
         } else {
             Admin::create($saveData);
         }
+        $userInfo = Admin::where('username', $data['username'])->get()->toArray();
+        $uid = $userInfo[0]['id'];
+        RoleUser::insert(['user_id' => $uid, 'role_id' => '']);
 
         return $this->success(['注册成功']);
     }
@@ -114,7 +122,6 @@ class AdminController extends Controller
             //存储用户信息
             Session::put('user_name', $data['username']);
             Session::put('user_id', $userInfo[0]['id']);
-            Session::save();
 
             return $this->success(['登录成功']);
         } else {
@@ -122,9 +129,12 @@ class AdminController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::guard('admin')->logout();
+        $request->session()->forget('user_name');
+        $request->session()->forget('user_id');
+
+        //Auth::guard('admin')->logout();
         // 跳转到登录页
         //return redirect('admin/login');
 
@@ -164,17 +174,42 @@ class AdminController extends Controller
         $role = array_column($role, null, 'id');
         $permission = Permission::get()->toArray();
         $permission = array_column($permission, null, 'id');
-        $re = RoleUser::get()->toArray();
+        $re = RoleUser::where('delete_flag', 1)->get()->toArray();
 
         $data = [];
         foreach ($re as $k => $v) {
             $data[$k]['uid'] = $v['user_id'];
             $data[$k]['username'] = $user[$v['user_id']]['username'];
-            $data[$k]['role'] = $role[$v['role_id']]['name'];
-            $data[$k]['permission'] = $permission[$v['permissions_id']]['display_name'];
+            $data[$k]['role'] = isset($role[$v['role_id']]['name']) ? $role[$v['role_id']]['name'] : '';
+            $data[$k]['permission'] = isset($permission[$v['permissions_id']]['display_name']) ? $permission[$v['permissions_id']]['display_name'] : '';
 
         }
-        return $this->success([$data]);
 
+        return $this->success([$data]);
+    }
+
+    /**
+     * 添加人员角色
+     *
+     * @return array
+     */
+    public function addRoleUser(Request $request)
+    {
+        $param = $request->only(
+            'role_id',
+            'user_id'
+        );
+        $updateArr = [
+            'delete_flag' => 2,
+        ];
+        RoleUser::where('user_id', $param['user_id'])->update($updateArr);
+
+        $data = [
+            'role_id' => $param['role_id'],
+            'user_id' => $param['user_id']
+        ];
+        RoleUser::insert($data);
+
+        return $this->success([]);
     }
 }

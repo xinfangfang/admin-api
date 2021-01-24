@@ -21,6 +21,8 @@ Route::group([
     //'middleware' => [],
 ], function ($router) {
     $router->post('user/add', 'AdminController@saveAdmin');                //注册
+    $router->post('user_role/add', 'AdminController@addRoleUser');         //赋予角色
+
     $router->post('user/check', 'AdminController@checkLogin');             //登录验证
     $router->post('user/out', 'AdminController@logout');                   //登出
     $router->post('role/get', 'AdminController@getRole');                  //获取用户
@@ -30,11 +32,13 @@ Route::group([
 
     $router->get('user/role', 'AdminController@addRole');                  //添加角色
     $router->get('user/info', 'AdminController@addUser');                  //添加用户
-    $router->get('user/permission', 'AdminController@addPermission');      //添加权限
+    $router->post('user/permission', 'AdminController@addPermission');     //添加权限
 
     $router->post('excel/add', 'ExcelController@ImportExcel');             //excel导入
     $router->post('excel/get', 'ExcelController@getLabour');               //excel_list
-    $router->post('excel/import', 'ExcelController@exportExcel');          //excel导出
+    $router->get('excel/import', 'ExcelController@exportExcel');          //excel导出
+    $router->get('excel/uq_import', 'ExcelController@exportUqExcel');          //excel导出
+
 
 
 });
